@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf8" />
+	<title> test all of you learn</title>
+	<style>
+		#mySearch {
+			width: 100%;
+			font-size: 18px;
+			padding: 11px;
+			border: 1px solid #ddd;
+		}
+
+		#myMenu {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#myMenu a {
+			padding: 12px;
+			text-decoration: none;
+			color: black;
+		}
+
+		#myMenu a:hover {
+			background-color: #eee;
+		}
+	</style>
+	<script>
+		let subjectObject = {
+			"Front-end": {
+				"HTML": ["Links", "Images", "Tables", "Lists"],
+				"CSS": ["Borders", "Margins", "Backgrounds", "Float"],
+				"JavaScript": ["letiables", "Operators", "Functions", "Conditions"]
+			},
+			"Back-end": {
+				"PHP": ["letiables", "Strings", "Arrays"],
+				"SQL": ["SELECT", "UPDATE", "DELETE"]
+			}
+		}
+		document.addEventListener("DOMContentLoaded", function () {
+			let subject = document.querySelector("#subject");
+			let topic = document.querySelector("#topic");
+			let chapter = document.querySelector("#chapter");
+			for (let name of Reflect.ownKeys(subjectObject)) {
+				subject.options.add(new Option(name));
+				// let value = subjectObject[name];
+			}
+			subject.addEventListener("change", function () {
+				chapter.options.length = 1;
+				topic.options.length = 1;
+				for (let name of Reflect.ownKeys(subjectObject[subject.value])) {
+					topic.options.add(new Option(name));
+				}
+			});
+			topic.addEventListener("change", function () {
+				chapter.options.length = 1;
+				for (let item of subjectObject[subject.value][topic.value]) {
+					chapter.options.add(new Option(item));
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<h1>Cascading Dropdown Example</h1>
+
+	<form name="form1" id="form1" action="/action_page.php">
+		Subjects: <select name="subject" id="subject">
+			<option value="" selected="selected">Select subject</option>
+		</select>
+		<br><br>
+		Topics: <select name="topic" id="topic">
+			<option value="" selected="selected">Please select subject first</option>
+		</select>
+		<br><br>
+		Chapters: <select name="chapter" id="chapter">
+			<option value="" selected="selected">Please select topic first</option>
+		</select>
+		<br><br>
+		<input type="submit" value="Submit">
+	</form>
+
+</body>
+
+</html>
